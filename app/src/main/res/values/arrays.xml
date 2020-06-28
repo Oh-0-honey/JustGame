@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Games">
+        <item>나를 찾아줘</item>
+        <item>마피아</item>
+    </string-array>
+    
+</resources>

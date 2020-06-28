@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v){
         if(v==enter_btn){
-            //QR코드 스캔 기능 필요
+            //QR코드 스캔 카메라 기능 필요
         }
         if(v==create_btn){
             startActivity(new Intent(getApplication(),RoomActivity.class));
