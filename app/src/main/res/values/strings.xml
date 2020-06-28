@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">그냥 게임</string>
+    <string name="auto_login">자동 로그인</string>
+    <string name="login">로그인</string>
+    <string name="find_pw">비밀번호 찾기</string>
+    <string name="sign_up">회원가입</string>
+    <string name="login_fb">Facebook으로 로그인하기</string>
+    <string name="login_google">Google로 로그인하기</string>
+    <string name="empty_idpw">아이디와 비밀번호를 입력해주세요.</string>
+    <string name="enter_room">참가하기</string>
+    <string name="create_room">방 만들기</string>
+</resources>
