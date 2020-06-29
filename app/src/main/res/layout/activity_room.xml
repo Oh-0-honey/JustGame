@@ -9,22 +9,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="150dp"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:id="@+id/QRcode"
             android:src="@drawable/test_512"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"/>
+            android:layout_margin="15dp"/>
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:paddingStart="5dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
             <TextView
                 android:gravity="center"
                 android:layout_width="match_parent"
@@ -37,27 +34,22 @@
                 android:layout_height="match_parent"/>
         </LinearLayout>
     </LinearLayout>
-    <TableRow
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="6">
-        <LinearLayout
-            android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="45dp"
+            android:text="@string/game_list"
+            android:textSize="30sp"
+            android:gravity="center"/>
+        <ListView
+            android:id="@+id/game_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:text="@string/game_list"
-                android:textSize="30sp"
-                android:gravity="center"/>
-            <ListView
-                android:id="@+id/game_listview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+    </LinearLayout>
 
-        </LinearLayout>
-
-    </TableRow>
 </LinearLayout>

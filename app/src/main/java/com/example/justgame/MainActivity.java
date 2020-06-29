@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         enter_btn=(Button)findViewById(R.id.enter_room);
         create_btn=(Button)findViewById(R.id.create_room);
 
+        profile_img.setOnClickListener(this);
         enter_btn.setOnClickListener(this);
         create_btn.setOnClickListener(this);
 
@@ -36,12 +37,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v){
+        if(v==profile_img){
+
+        }
         if(v==enter_btn){
             //QR코드 스캔 카메라 기능 필요
+            startActivity(new Intent(getApplication(),QRScanActivity.class));
         }
         if(v==create_btn){
             startActivity(new Intent(getApplication(),RoomActivity.class));
-            finish();
         }
     }
 }
