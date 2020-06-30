@@ -41,7 +41,7 @@ public class QRScanActivity extends AppCompatActivity {
                 scan_result = result.getContents();
 
                 Intent intent =new Intent(getApplication(), ClientRoomActivity.class);
-                intent.putExtra("room_ip",scan_result);
+                intent.putExtra("room_info",scan_result);
                 startActivity(intent);
                 finish();
             }

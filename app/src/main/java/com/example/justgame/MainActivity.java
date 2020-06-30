@@ -52,7 +52,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(getApplication(),QRScanActivity.class));
         }
         if(v==create_btn){
-            startActivity(new Intent(getApplication(),ServerRoomActivity.class));
+            Intent intent =new Intent(getApplication(), ServerRoomActivity.class);
+            intent.putExtra("user_id",profile_id.getText().toString());
+            startActivity(intent);
         }
     }
 }

@@ -45,7 +45,7 @@ public class ServerRoomActivity extends AppCompatActivity implements AdapterView
     private AlertDialog game_dialog;
     private ImageView QRcode;
 
-    private String room_ip;
+    private String room_ip, user_id;
     private final int PORT=7070;
 
     private Socket socket;
@@ -59,6 +59,8 @@ public class ServerRoomActivity extends AppCompatActivity implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_server_room);
+
+        user_id=getIntent().getStringExtra("user_id");
 
         entry_list=(ListView)findViewById(R.id.entry_listview);
         game_list=(ListView)findViewById(R.id.game_listview);
@@ -82,9 +84,12 @@ public class ServerRoomActivity extends AppCompatActivity implements AdapterView
         }
 
         if(room_ip == null) setToast("인터넷 연결 후 다시 방을 만들어주세요.");
+        else{
+            room_ip += "/"+user_id;
+        }
         Log.d("IP_ADDRESS", "######### "+room_ip+" #########");
 
-        //QR코드 생성
+        //QR코드 생성(server 기준)
         MultiFormatWriter mfw_QRcode = new MultiFormatWriter();
         try{
             BitMatrix bitMatrix=mfw_QRcode.encode(room_ip, BarcodeFormat.QR_CODE,120,120);
@@ -158,20 +163,12 @@ public class ServerRoomActivity extends AppCompatActivity implements AdapterView
                     @Override
                     public void run() {
                         Log.d("SERVER", "@@@@@@@@@ server open success @@@@@@@@@");
-                        Log.d("SERVER", "@@@@@@@@@ PORT : "+PORT+" @@@@@@@@@");
                     }
                 });
 
-                socket = serverSocket.accept();
+                socket      = serverSocket.accept();
                 writeSocket = new DataOutputStream(socket.getOutputStream());
                 readSocket  = new DataInputStream(socket.getInputStream());
-
-                serverHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d("SERVER", "@@@@@@@@@ IP_ADDRESS : "+room_ip+" @@@@@@@@@");
-                    }
-                });
 
                 while(true){
                     byte[] bytes = new byte[100];
@@ -211,6 +208,6 @@ public class ServerRoomActivity extends AppCompatActivity implements AdapterView
     }
 
     public void setToast(String msg){
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT);
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 }
