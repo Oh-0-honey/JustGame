@@ -12,4 +12,7 @@
     <string name="entry_list">참가자 목록</string>
     <string name="game_list">게임 목록</string>
     <string name="gamestart">게임 시작</string>
+    <string name="scan_QR">참여하려는 방의 QR 코드를 스캔해주세요.</string>
+    <string name="survey">설문 작성하기</string>
+    <string name="option">설정</string>
 </resources>

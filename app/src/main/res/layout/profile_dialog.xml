@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/profile_img"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:src="@drawable/test_512"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"/>
+    
+    <TextView
+        android:id="@+id/profile_nickname"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/profile_img"
+        android:layout_marginTop="30dp"
+        android:text="test"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/profile_comment"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:background="@color/gray"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/profile_nickname"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:id="@+id/survey_btn"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:text="@string/survey"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="120dp"/>
+    <Button
+        android:id="@+id/option_btn"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:text="@string/option"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"/>
+
+
+</RelativeLayout>

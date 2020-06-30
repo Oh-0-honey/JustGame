@@ -3,6 +3,7 @@ package com.example.justgame;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -23,22 +24,26 @@ public class QRScanActivity extends AppCompatActivity {
 
         qrScan=new IntentIntegrator(this);
         qrScan.setOrientationLocked(false);
-        qrScan.setPrompt("");
+        qrScan.setPrompt(getResources().getString(R.string.scan_QR));
         qrScan.initiateScan();
 
         text_result=(TextView)findViewById(R.id.Scan_test);
     }
 
+    //스캔 결과
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null){
             if(result.getContents() == null){
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
                 scan_result = "Not Scanned";
             } else{
-                Toast.makeText(this, "Scanned : "+result.getContents(), Toast.LENGTH_SHORT).show();
                 scan_result = result.getContents();
+
+                Intent intent =new Intent(getApplication(), ClientRoomActivity.class);
+                intent.putExtra("room_ip",scan_result);
+                startActivity(intent);
+                finish();
             }
             text_result.setText(scan_result);
         } else{

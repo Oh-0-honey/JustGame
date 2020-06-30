@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     ImageView profile_img;
+    TextView profile_id;
     Button enter_btn, create_btn;
+    String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,29 +26,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         profile_img=(ImageView)findViewById(R.id.profile_img);
         enter_btn=(Button)findViewById(R.id.enter_room);
         create_btn=(Button)findViewById(R.id.create_room);
+        profile_id=(TextView)findViewById(R.id.profile_id);
+        user_id =getIntent().getStringExtra("user_id");
 
         profile_img.setOnClickListener(this);
         enter_btn.setOnClickListener(this);
         create_btn.setOnClickListener(this);
 
+        profile_id.setText(user_id);
 
         //프로필 둥글게
         profile_img.setBackground(new ShapeDrawable(new OvalShape()));
         profile_img.setClipToOutline(true);
+
     }
 
 
     @Override
     public void onClick(View v){
         if(v==profile_img){
+            //다이얼로그
 
         }
         if(v==enter_btn){
-            //QR코드 스캔 카메라 기능 필요
             startActivity(new Intent(getApplication(),QRScanActivity.class));
         }
         if(v==create_btn){
-            startActivity(new Intent(getApplication(),RoomActivity.class));
+            startActivity(new Intent(getApplication(),ServerRoomActivity.class));
         }
     }
 }

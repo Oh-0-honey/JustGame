@@ -2,6 +2,7 @@ package com.example.justgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -39,7 +40,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if(id_text.getText().toString().isEmpty() || pw_text.getText().toString().isEmpty()){
                 showSnack(R.string.empty_idpw);
             } else {
-                startActivity(new Intent(getApplication(),MainActivity.class));
+                Intent intent =new Intent(getApplication(), MainActivity.class);
+                intent.putExtra("user_id",id_text.getText().toString());
+                startActivity(intent);
                 finish();
             }
         }
