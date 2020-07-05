@@ -23,6 +23,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -33,6 +34,7 @@ public class ClientRoomActivity extends AppCompatActivity implements AdapterView
     private ImageView QRcode;
 
     private String[] room;
+    private String user_id;
     private final String CLIENT="CLIENT";
     private final int PORT = 7070;
 
@@ -41,11 +43,14 @@ public class ClientRoomActivity extends AppCompatActivity implements AdapterView
     private DataInputStream readSocket;
     private Handler clientHandler = new Handler();
     private ConnectivityManager connectManager;
+    private String recv_msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_room);
+
+        user_id=getIntent().getStringExtra("user_id");
 
         entry_list = (ListView) findViewById(R.id.entry_listview);
         game_list = (ListView) findViewById(R.id.game_listview);
@@ -54,23 +59,14 @@ public class ClientRoomActivity extends AppCompatActivity implements AdapterView
         game_list.setOnItemClickListener(this);
         entry_list.setOnItemLongClickListener(this);
 
-        room = getIntent().getStringExtra("room_info").split("/");
-        setToast(room[0]);
-        //QR코드 생성(Server 기준)
-        MultiFormatWriter mfw_QRcode = new MultiFormatWriter();
-        try{
-            BitMatrix bitMatrix=mfw_QRcode.encode(room[0]+"/"+room[1], BarcodeFormat.QR_CODE,120,120);
-            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-            Bitmap QR_bitmap = barcodeEncoder.createBitmap(bitMatrix);
-            Log.d(CLIENT, room[0]+" / "+room[1]+" 방 접속");
-            QRcode.setImageBitmap(QR_bitmap);
-        }catch (Exception e){
-            // 예외처리 없음
-        }
+        room = getIntent().getStringExtra("room_info").split("/"); // ip/port/nickname
+        makeQrCode();
 
         new Connect().start();
         
     }
+
+
 
 
     @Override
@@ -106,7 +102,7 @@ public class ClientRoomActivity extends AppCompatActivity implements AdapterView
     class Connect extends Thread{
         public void run(){
             try {
-                socket      = new Socket(room[0], PORT);
+                socket      = new Socket(room[0],Integer.parseInt(room[1]));
                 writeSocket = new DataOutputStream(socket.getOutputStream());
                 readSocket  = new DataInputStream(socket.getInputStream());
 
@@ -114,11 +110,10 @@ public class ClientRoomActivity extends AppCompatActivity implements AdapterView
                     @Override
                     public void run() {
                         Log.d(CLIENT, "@@@@@@@@@ client connect success @@@@@@@@@");
-                        setToast(room[1]+"님 방에 접속했습니다.");
+                        setToast(room[2]+"님 방에 접속했습니다.");
                     }
                 });
-
-                new recvSocket().start();
+                SendMsg(user_id+"님이 접속 했습니다.");
 
             } catch (Exception e){
                 e.printStackTrace();
@@ -126,9 +121,26 @@ public class ClientRoomActivity extends AppCompatActivity implements AdapterView
                     @Override
                     public void run() {
                         Log.d(CLIENT, "!!!!!!!!!!! client connect fail !!!!!!!!!!!");
-                        setToast(room[0]+"방에 접속하지 못 했습니다.");
+                        setToast(getResources().getString(R.string.client_open_fail));
+                        Finish_in_Thread();
                     }
                 });
+            }
+            while(true){
+                try {
+                    recv_msg = readSocket.readUTF();
+                    if(recv_msg.equals("OUT")) break;
+
+                    clientHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    });
+
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -140,31 +152,43 @@ public class ClientRoomActivity extends AppCompatActivity implements AdapterView
                     socket.close();
                 }
             } catch (Exception e){
-
+                e.printStackTrace();
             }
         }
     }
 
-    class recvSocket extends Thread{
-        public void run(){
-            try{
-                readSocket = new DataInputStream(socket.getInputStream());
+    public void SendMsg(String send_msg){
+        if(writeSocket == null) return;
+        final String msg = send_msg;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    writeSocket.writeUTF(msg);
+                    writeSocket.flush();
 
-                while(true){
-                    byte[] bytes = new byte[100];
-                    int ac=readSocket.read(bytes,0,bytes.length);
-                    String input = new String(bytes, 0, bytes.length);
-                    final String recvInput = input.trim();
-
-                    if(ac == -1) break;
+                } catch (IOException e){
+                    e.printStackTrace();
                 }
-            } catch (Exception e){
-
             }
-        }
+        });
     }
 
     public void setToast(String msg){
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+    }
+    void Finish_in_Thread(){ finish(); }
+    private void makeQrCode() {
+        //QR코드 생성(Server 기준)
+        MultiFormatWriter mfw_QRcode = new MultiFormatWriter();
+        try{
+            BitMatrix bitMatrix=mfw_QRcode.encode(room[0]+"/"+room[1]+"/"+room[2], BarcodeFormat.QR_CODE,120,120);
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap QR_bitmap = barcodeEncoder.createBitmap(bitMatrix);
+            Log.d(CLIENT, room[0]+" / "+room[1]+" / "+room[2]+" 방 접속 시도");
+            QRcode.setImageBitmap(QR_bitmap);
+        }catch (Exception e){
+            // 예외처리 없음
+        }
     }
 }

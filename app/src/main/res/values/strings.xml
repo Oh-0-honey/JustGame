@@ -15,4 +15,7 @@
     <string name="scan_QR">참여하려는 방의 QR 코드를 스캔해주세요.</string>
     <string name="survey">설문 작성하기</string>
     <string name="option">설정</string>
+    <string name="not_scanned">올바른 QR코드인지 확인해주세요.</string>
+    <string name="server_open_fail">방 생성에 실패했습니다. 인터넷 상태를 확인하고 다시 시도해주세요.</string>
+    <string name="client_open_fail">방 참가에 실패했습니다. 인터넷 상태를 확인하고 다시 시도해주세요.</string>
 </resources>

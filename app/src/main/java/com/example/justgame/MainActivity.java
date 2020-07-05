@@ -48,10 +48,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //다이얼로그
 
         }
-        if(v==enter_btn){
-            startActivity(new Intent(getApplication(),QRScanActivity.class));
+        else if(v==enter_btn){
+            Intent intent =new Intent(getApplication(), QRScanActivity.class);
+            intent.putExtra("user_id",profile_id.getText().toString());
+            startActivity(intent);
         }
-        if(v==create_btn){
+        else if(v==create_btn){
             Intent intent =new Intent(getApplication(), ServerRoomActivity.class);
             intent.putExtra("user_id",profile_id.getText().toString());
             startActivity(intent);

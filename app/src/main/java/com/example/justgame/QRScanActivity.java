@@ -17,11 +17,14 @@ public class QRScanActivity extends AppCompatActivity {
     TextView text_result;
     String scan_result;
 
+    private String user_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_scan);
 
+        user_id=getIntent().getStringExtra("user_id");
         qrScan=new IntentIntegrator(this);
         qrScan.setOrientationLocked(false);
         qrScan.setPrompt(getResources().getString(R.string.scan_QR));
@@ -36,12 +39,14 @@ public class QRScanActivity extends AppCompatActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null){
             if(result.getContents() == null){
-                scan_result = "Not Scanned";
+                setToast(getResources().getString(R.string.not_scanned));
+                finish();
             } else{
                 scan_result = result.getContents();
 
                 Intent intent =new Intent(getApplication(), ClientRoomActivity.class);
                 intent.putExtra("room_info",scan_result);
+                intent.putExtra("user_id",user_id);
                 startActivity(intent);
                 finish();
             }
@@ -49,5 +54,9 @@ public class QRScanActivity extends AppCompatActivity {
         } else{
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    void setToast(String msg){
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 }
