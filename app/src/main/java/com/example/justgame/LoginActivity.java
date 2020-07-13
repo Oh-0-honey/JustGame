@@ -9,14 +9,14 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     Button login;
-    AutoCompleteTextView id_text;
-    TextView pw_text;
+    EditText id_text,pw_text;
     CheckBox auto_login;
 
 
@@ -26,8 +26,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         login=(Button)findViewById(R.id.login_btn);
-        id_text=(AutoCompleteTextView)findViewById(R.id.id_text);
-        pw_text=(TextView)findViewById(R.id.pw_text);
+        id_text=(EditText)findViewById(R.id.id_text);
+        pw_text=(EditText)findViewById(R.id.pw_text);
         auto_login=(CheckBox)findViewById(R.id.auto_login);
 
         login.setOnClickListener(this);

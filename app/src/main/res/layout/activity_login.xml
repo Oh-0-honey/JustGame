@@ -29,13 +29,14 @@
             android:layout_height="40dp"
             android:src="@drawable/id"
             android:background="@color/signiture"/>
-        <AutoCompleteTextView
+        <EditText
             android:id="@+id/id_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="50dp"
             android:inputType="textEmailAddress"
             android:singleLine="true"
+            android:imeOptions="actionNext"
             android:nextFocusDown="@id/pw_text"/>
     </androidx.cardview.widget.CardView>
 
@@ -54,13 +55,14 @@
             android:layout_height="40dp"
             android:src="@drawable/pw"
             android:background="@color/signiture"/>
-        <AutoCompleteTextView
+        <EditText
             android:id="@+id/pw_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="50dp"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             android:singleLine="true"
+            android:imeOptions="actionDone"
             android:nextFocusDown="@id/login_btn"/>
     </androidx.cardview.widget.CardView>
 

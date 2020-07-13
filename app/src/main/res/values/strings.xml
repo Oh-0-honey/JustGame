@@ -18,4 +18,13 @@
     <string name="not_scanned">올바른 QR코드인지 확인해주세요.</string>
     <string name="server_open_fail">방 생성에 실패했습니다. 인터넷 상태를 확인하고 다시 시도해주세요.</string>
     <string name="client_open_fail">방 참가에 실패했습니다. 인터넷 상태를 확인하고 다시 시도해주세요.</string>
+
+
+    <string name="find_me">나를 찾아줘</string>
+    <string name="find_me_intro">나를 찾아줘 게임 설명</string>
+    <string name="mafia">마피아</string>
+
+    <string name="choose_first_impression">첫인상 선택</string>
+    <string name="check_survey">설문지 확인</string>
 </resources>
+
